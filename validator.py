@@ -20,4 +20,6 @@ def validate(raw: str) -> tuple[str, float]:
         raise ValidationError(f"Invalid number: {value_str}") from exc
     if value < 0:
         raise ValidationError(NEGATIVE_ERROR)
+    if unit not in KNOWN_UNITS:
+        raise ValidationError(f"Unknown unit: {unit}")
     raise ValidationError("not implemented")

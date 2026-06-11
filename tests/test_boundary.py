@@ -25,7 +25,8 @@ def test_u_out_01_meter_stdout():
 
 
 def test_u_in_04_unknown_unit():
-    pytest.fail("RED: U-IN-04")
+    with pytest.raises(ValidationError, match="Unknown unit: mile"):
+        validate("mile:1")
 
 
 @pytest.mark.parametrize("input_str", [pytest.param(":2.5", id="empty_unit"), pytest.param("meter:", id="empty_value")])
