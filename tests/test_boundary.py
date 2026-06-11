@@ -11,7 +11,8 @@ def test_u_in_01_empty_input():
 
 
 def test_u_in_02_no_colon():
-    pytest.fail("RED: U-IN-02")
+    with pytest.raises(ValidationError, match=FORMAT_ERROR):
+        validate("meter")
 
 
 def test_u_in_03_reject_negative():

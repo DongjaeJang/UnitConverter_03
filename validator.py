@@ -9,4 +9,6 @@ KNOWN_UNITS = ("meter", "feet", "yard")
 def validate(raw: str) -> tuple[str, float]:
     if not raw:
         raise ValidationError(FORMAT_ERROR)
+    if ":" not in raw:
+        raise ValidationError(FORMAT_ERROR)
     raise ValidationError("not implemented")
