@@ -31,4 +31,5 @@ def test_u_in_04_unknown_unit():
 
 @pytest.mark.parametrize("input_str", [pytest.param(":2.5", id="empty_unit"), pytest.param("meter:", id="empty_value")])
 def test_u_in_05_empty_token(input_str):
-    pytest.fail("RED: U-IN-05")
+    with pytest.raises(ValidationError, match=FORMAT_ERROR):
+        validate(input_str)
