@@ -1,11 +1,11 @@
 ---
 name: unit-converter-tdd
-description: UnitConverter_03 Dual-Track TDD (Track A Boundary, Track B Domain). Use for RED/GREEN/REFACTOR, pytest, OCP/SRP, U-*/D-* tests, unit_converter package, or when the user mentions SPEC phase rules.
+description: UnitConverter_14 Dual-Track TDD (Track A Boundary, Track B Domain). Use for RED/GREEN/REFACTOR, pytest, OCP/SRP, U-*/D-* tests, unit_converter package, or when the user mentions SPEC phase rules.
 ---
 
 # unit-converter-tdd
 
-UnitConverter_03 **Dual-Track TDD** 절차 SSOT. `.cursor/rules/` · `docs/` 와 충돌 시 **RED 금지 규칙** 우선.
+UnitConverter_14 **Dual-Track TDD** 절차 SSOT. `.cursor/rules/` · `docs/` 와 충돌 시 **RED 금지 규칙** 우선.
 
 ## 언제 사용
 

@@ -1,6 +1,6 @@
 # TDD GREEN — 최소 구현
 
-UnitConverter_03 **GREEN 단계**. 지정 Test ID를 **통과**시키는 **최소 구현**만. REFACTOR(패키지 분리)는 하지 않는다.
+UnitConverter_14 **GREEN 단계**. 지정 Test ID를 **통과**시키는 **최소 구현**만. REFACTOR(패키지 분리)는 하지 않는다.
 
 절차: `.cursor/skills/unit-converter-tdd/SKILL.md` · Test ID: `reference.md`
 

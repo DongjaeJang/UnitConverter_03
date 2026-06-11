@@ -1,6 +1,6 @@
 # TDD RED — 실패 테스트 먼저
 
-UnitConverter_03 **Dual-Track TDD** — **RED 단계만**. GREEN/REFACTOR·`unit_converter/` 구현은 하지 않는다.
+UnitConverter_14 **Dual-Track TDD** — **RED 단계만**. GREEN/REFACTOR·`unit_converter/` 구현은 하지 않는다.
 절차 SSOT: `.cursor/skills/unit-converter-tdd/SKILL.md` · Test ID: `reference.md` · 규칙: `.cursor/rules/unit-converter-red.mdc`
 
 ---

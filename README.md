@@ -1,4 +1,4 @@
-# UnitConverter_03
+# UnitConverter_14
 
 길이 단위 변환 CLI를 **PRD·테스트와 추적 가능(C2C)** 하게 재구현하는 프로젝트입니다.
 
@@ -81,7 +81,7 @@ main → staging → spec → red → green → refactoring → new_features
 ## 프로젝트 구조
 
 ```
-UnitConverter_03/
+UnitConverter_14/
 ├── .cursor/
 │   ├── rules/                      # project · red · refactor
 │   ├── commands/                   # spec-only · tdd-red · tdd-green

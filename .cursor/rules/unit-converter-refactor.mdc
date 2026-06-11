@@ -1,5 +1,5 @@
 ---
-description: UnitConverter_03 REFACTOR 단계 — 구조 개선, 계약 불변
+description: UnitConverter_14 REFACTOR 단계 — 구조 개선, 계약 불변
 globs: unit_converter/**/*
 alwaysApply: false
 ---

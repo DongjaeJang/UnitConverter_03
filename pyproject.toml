@@ -1,7 +1,7 @@
 [project]
-name = "unit-converter-03"
+name = "unit-converter-14"
 version = "0.1.0"
-description = "Length unit converter CLI — PRD-driven TDD (UnitConverter_03)"
+description = "Length unit converter CLI — PRD-driven TDD (UnitConverter_14)"
 requires-python = ">=3.11"
 
 [project.optional-dependencies]

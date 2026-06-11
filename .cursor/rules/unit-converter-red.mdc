@@ -1,5 +1,5 @@
 ---
-description: UnitConverter_03 RED 단계 — tests/ only, pytest.fail
+description: UnitConverter_14 RED 단계 — tests/ only, pytest.fail
 globs: tests/**/*.py
 alwaysApply: false
 ---
