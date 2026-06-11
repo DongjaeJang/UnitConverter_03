@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 def main():
     input_str = input("Insert value for converting (ex: meter:2.5): ")
 
@@ -30,7 +31,11 @@ def main():
     print(f"{value} {unit} = {in_meters} meter")
     print(f"{value} {unit} = {in_feet} feet")
     print(f"{value} {unit} = {in_yards} yard")
+=======
+﻿from unit_converter.cli import main, process
+>>>>>>> 21492fd ([REFACTOR] Add unit_converter cli and thin UnitConverter entry)
 
+__all__ = ["main", "process"]
 
 if __name__ == "__main__":
     main()
