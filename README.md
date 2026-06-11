@@ -42,25 +42,23 @@ python -m pytest tests/ -v
 
 ---
 
-## ARRR ↔ Cursor 8계층
+## ARRR ↔ Cursor Command (UnitConverter_09 방식)
 
 | ARRR | 개발 활동 | Command | 모드 |
 |------|-----------|---------|------|
-| **A — Ask** | RED 설계·스켈레톤 | `/red-test-plan` → `/red-skeleton` | Ask → Agent |
-| **R — Respond** | GREEN·Golden | `/green-minimal` → `/golden-master` | Agent |
-| **R — Refine** | REFACTOR | `/refactor-smell` → `/refactor-safe` | Ask → Agent |
+| **준비** | SPEC 설계 | `/spec-only` | Agent |
+| **A — Ask** | RED 실패 테스트 | `/tdd-red` | Agent |
+| **R — Respond** | GREEN 최소 구현 | `/tdd-green` | Agent |
+| **R — Refine** | REFACTOR | Skill + `.cursor/rules/unit-converter-refactor.mdc` | Agent |
 | **R — Repeat** | 문서화 | Report · Prompting | Agent |
 
 ## 슬래시 Command 목록
 
-| Command | ARRR | 모드 |
-|---------|------|------|
-| `/red-test-plan` | RED ③ 설계표 | Ask |
-| `/red-skeleton` | RED ④ 스켈레톤 | Agent |
-| `/green-minimal` | GREEN | Agent |
-| `/golden-master` | Golden Master | Agent |
-| `/refactor-smell` | REFACTOR ⑦ 스멜 | Ask |
-| `/refactor-safe` | REFACTOR ⑧ 실행 | Agent |
+| Command | Phase | 모드 |
+|---------|-------|------|
+| `/spec-only` | spec — 문서·Harness만 | Agent |
+| `/tdd-red` | red — `pytest.fail` 스켈레톤 | Agent |
+| `/tdd-green` | green — 최소 구현 | Agent |
 
 ## 브랜치 전략 (ARRR)
 
@@ -72,7 +70,7 @@ main → staging → spec → red → green → refactoring → new_features
 |--------|------|-----------|
 | `spec` | 준비 | docs, .cursor/, Harness |
 | `red` | Ask=RED | `tests/`만 |
-| `green` | Respond | `unit_converter/` + 해당 tests |
+| `green` | Respond | `converter.py`/`validator.py`/`UnitConverter.py` + tests |
 | `refactoring` | Refine | 구조 개선 (계약 불변) |
 | `new_features` | Repeat | EXT-01~03 (각 RED 사이클) |
 
@@ -85,9 +83,9 @@ main → staging → spec → red → green → refactoring → new_features
 ```
 UnitConverter_03/
 ├── .cursor/
-│   ├── rules/unit-converter.mdc    # ARRR·브랜치·C2C 헌법
-│   ├── commands/                   # 슬래시 Command 6종
-│   └── skills/unit-converter-tdd/  # TDD 절차 Skill
+│   ├── rules/                      # project · red · refactor
+│   ├── commands/                   # spec-only · tdd-red · tdd-green
+│   └── skills/unit-converter-tdd/  # SKILL.md + reference.md
 ├── docs/
 │   ├── PRD.md                      # FR/NFR/C2C/RED 설계표
 │   └── ARCHITECTURE.md             # 목표 패키지 구조
@@ -104,10 +102,11 @@ UnitConverter_03/
 `red` 이후 추가 예정:
 
 ```
-unit_converter/          # green — domain/app/infrastructure/cli
-tests/domain/            # red — Track B
-tests/boundary/          # red — Track A
-tests/golden/            # green — Golden Master
+converter.py             # green — Domain 임시 모듈
+validator.py             # green — 입력 검증
+tests/test_domain.py     # red — Track B
+tests/test_boundary.py   # red — Track A
+unit_converter/          # refactoring — 패키지 이전
 ```
 
 ---
@@ -116,8 +115,8 @@ tests/golden/            # green — Golden Master
 
 | PRD | Test ID | Track |
 |-----|---------|-------|
-| FR-01~02 | D-CNV-01~03 | B |
-| FR-04~05 | U-IN-01~03 | A |
+| FR-01~02 | D-CNV-01~04 | B |
+| FR-04~05 | U-IN-01~05 | A |
 | FR-02 출력 | U-OUT-01 | A |
 | NFR-01 | D-REG-01 | B |
 | EXT-01~03 | D-CFG-01, D-REG-01, U-OUT-02 | P1 |
@@ -129,32 +128,27 @@ tests/golden/            # green — Golden Master
 ## ARRR 실습 순서 (복붙)
 
 ```
-/red-test-plan          # Ask — 설계표만
-/red-skeleton           # Agent — pytest.fail 스켈레톤 (red 브랜치)
-/green-minimal          # Agent — 최소 구현 (green 브랜치)
-/golden-master          # Agent — Golden (PASS 후)
-/refactor-smell         # Ask — 스멜 표
-/refactor-safe          # Agent — 스멜 1개
+/spec-only              # spec — 문서·Cursor 설정만
+/tdd-red                # red — pytest.fail 스켈레톤 (red 브랜치)
+/tdd-green              # green — 최소 구현 (green 브랜치)
 ```
 
-### RED 설계 프롬프트 예시
+### RED 프롬프트 예시
 
 **Track B — Domain**
 
 ```
-/red-test-plan
-Phase: red | Layer: domain | Track: Logic
-이번 RED 묶음: D-CNV-01 (FR-02)
-(표 4블록 작성, tests/·unit_converter/ 만들지 마)
+/tdd-red
+Phase: red | Track: B | Test ID: D-CNV-01
+tests/test_domain.py에 pytest.fail 스켈레톤 작성
 ```
 
 **Track A — Boundary**
 
 ```
-/red-test-plan
-Phase: red | Layer: boundary | Track: UI
-이번 RED 묶음: U-IN-01, U-IN-02 (FR-05)
-(표 4블록 작성, tests/·unit_converter/ 만들지 마)
+/tdd-red
+Phase: red | Track: A | Test ID: U-IN-01
+tests/test_boundary.py에 pytest.fail 스켈레톤 작성
 ```
 
 ---
@@ -176,4 +170,4 @@ Phase: red | Layer: boundary | Track: UI
 git checkout -b red
 ```
 
-`/red-skeleton`으로 `D-CNV-01`부터 Track B 테스트 스켈레톤을 작성합니다.
+`/tdd-red`로 `D-CNV-01`부터 Track B 테스트 스켈레톤을 작성합니다.

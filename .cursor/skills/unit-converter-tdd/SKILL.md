@@ -1,54 +1,77 @@
 ---
 name: unit-converter-tdd
-description: UnitConverter_03 TDD·ARRR 절차. RED 설계·스켈레톤, GREEN 최소 구현, Golden Master, REFACTOR 시 참조.
+description: UnitConverter_03 Dual-Track TDD (Track A Boundary, Track B Domain). Use for RED/GREEN/REFACTOR, pytest, OCP/SRP, U-*/D-* tests, unit_converter package, or when the user mentions SPEC phase rules.
 ---
 
-# UnitConverter TDD Skill
+# unit-converter-tdd
 
-## SSOT
+UnitConverter_03 **Dual-Track TDD** 절차 SSOT. `.cursor/rules/` · `docs/` 와 충돌 시 **RED 금지 규칙** 우선.
 
-- 요구사항: `docs/PRD.md`
-- 아키텍처: `docs/ARCHITECTURE.md`
-- 비율 상수: `tests/conftest.py`
+## 언제 사용
 
-## ARRR 1사이클
+- TDD, RED/GREEN/REFACTOR, Track A/B, `U-*`/`D-*`, OCP/SRP, `unit_converter/` 언급
+- `tests/` 또는 `UnitConverter.py` 수정 요청
+- `/tdd-red` · `/tdd-green` Command 실행
 
-```
-/red-test-plan   → Ask, 설계표 (docs/PRD §8 참고)
-/red-skeleton    → Agent, tests/ 스켈레톤, pytest FAIL
-/green-minimal   → Agent, unit_converter/ 최소 구현, PASS
-/golden-master   → Agent, 출력 계약 고정 (boundary)
-/refactor-smell  → Ask, 스멜 표
-/refactor-safe   → Agent, 스멜 1개, Budget 준수
-```
-
-## Dual-Track
-
-| Track | Layer | 경로 | Mock |
-|-------|-------|------|------|
-| B — Logic | domain | `tests/domain/` | 금지 |
-| A — Boundary | app/cli | `tests/boundary/` | 허용 |
-
-## P0 Test ID (필수 완료)
-
-**Domain:** D-CNV-01, D-CNV-02, D-CNV-03  
-**Boundary:** U-IN-01, U-IN-02, U-IN-03, U-OUT-01
-
-## RED 스켈레톤 템플릿
-
-```python
-def test_d_cnv_01_one_feet_to_meter(conversion_ratios):
-    # Given: 1 feet
-    # When: to_meter(1.0, "feet", registry)
-    # Then: ≈ 0.3048 m (FLOAT_EPS)
-    pytest.fail("RED: D-CNV-01 — 구현 없음, 의도적 실패")
-```
-
-## 변환 공식
+## 시작 선언 (필수)
 
 ```
-meter_value = input_value / ratio[source_unit]
-result[unit] = meter_value * ratio[unit]
+Phase: red|green|refactor | Track: A|B | Test ID: D-CNV-01 (또는 U-IN-01)
 ```
 
-ratio는 meter=1.0 기준 (feet=3.28084, yard=1.09361).
+## Track A vs Track B
+
+| | Track A — Boundary | Track B — Domain |
+|--|-------------------|------------------|
+| TC | `U-*` | `D-*` |
+| 파일 | `tests/test_boundary.py` | `tests/test_domain.py` |
+| Mock | 최소 | **금지** (순수 변환) |
+| RED 순서 | **2번째** | **1번째** |
+
+Test ID: [reference.md](reference.md)
+
+## RED 단계 금지 규칙
+
+- **RED 단계에서 구현 코드 작성 금지**
+- **`pytest.fail("RED: ...")` 허용**
+- **`skip` / `xfail` 금지**
+- **1 RED 묶음 = 1 커밋**
+
+### RED 절차
+
+1. Test ID 확인 (`reference.md`)
+2. `Phase: red | Track: … | Test ID: …` 선언
+3. `tests/` only — AAA 주석 + `pytest.fail("RED: {ID} — …")`
+4. `pytest` 실행 → **FAIL** 확인
+5. 커밋: `[RED] D-CNV-01 …` (1 묶음 = 1 커밋)
+
+### RED 금지
+
+- `unit_converter/` · `converter.py` · `validator.py` 생성
+- `UnitConverter.py` 리팩터 (GREEN 전)
+- `skip` / `xfail` / 통과 더미 assert
+- Track B Domain `@patch`
+
+## GREEN / REFACTOR
+
+| Phase | 코드 | 테스트 |
+|-------|------|--------|
+| GREEN | 최소 구현 (`converter.py`, `validator.py`, `UnitConverter.py`) | `pytest.fail` → assert |
+| REFACTOR | `docs/ARCHITECTURE.md` 패키지 구조 | Phase 1 TC 회귀 Green |
+
+REFACTOR 시 `Converter` 본체는 Phase 2에서도 **수정하지 않음** (OCP).
+
+## Command
+
+| Command | Phase |
+|---------|-------|
+| `/spec-only` | spec |
+| `/tdd-red` | red |
+| `/tdd-green` | green |
+
+## 추가 자료
+
+- [reference.md](reference.md) — Phase 1 10 TC · FR 요약
+- `docs/PRD.md` — C2C · RED 설계표
+- `docs/ARCHITECTURE.md` — REFACTOR 목표 패키지
+- `.cursor/commands/tdd-red.md` — RED Command
