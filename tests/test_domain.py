@@ -2,7 +2,7 @@
 
 import pytest
 
-from converter import convert_all, to_meter
+from converter import METER_TO_YARD, convert_all, to_meter
 
 
 def test_d_cnv_01_to_meter_feet():
@@ -16,7 +16,11 @@ def test_d_cnv_02_convert_all_feet():
 
 
 def test_d_cnv_03_feet_yard_consistency():
-    pytest.fail("RED: D-CNV-03")
+    result = convert_all("feet", 1)
+    assert "feet" not in result
+    meter_value = to_meter("feet", 1)
+    expected_yard = float((meter_value * float(METER_TO_YARD)))
+    assert abs(result["yard"] - expected_yard) < 1e-4
 
 
 def test_d_cnv_04_convert_all_yard():
