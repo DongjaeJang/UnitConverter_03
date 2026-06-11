@@ -22,3 +22,6 @@ def test_d_cnv_03_feet_yard_consistency():
     # When: convert_all("feet", 1) — yard 값이 meter 경유 결과와 일치
     # Then: meter 경유 yard와 일치
     pytest.fail("RED: D-CNV-03 — feet→yard meter 경유 일치, 구현 없음")
+
+def test_d_cnv_04_convert_all_yard():
+    pytest.fail("RED: D-CNV-04 — 2.5 m → 2.73403 yard, 구현 없음")
