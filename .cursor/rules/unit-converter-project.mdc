@@ -1,0 +1,43 @@
+---
+description: UnitConverter_14 프로젝트 단계(SPEC/RED/GREEN/REFACTOR) 및 문서 SSOT
+alwaysApply: true
+---
+
+# UnitConverter_14 — 프로젝트 헌법
+
+## 브랜치 전략
+
+```
+main → staging → spec → red → green → refactoring → new_features
+```
+
+## 문서 SSOT
+
+| 문서 | 용도 |
+|------|------|
+| `docs/PRD.md` | FR/NFR · C2C · Dual-Track RED 설계표 |
+| `docs/ARCHITECTURE.md` | REFACTOR 목표 패키지 · ECB |
+| `Report/01.REPORT.md` | 레거시 Gap |
+| `tests/conftest.py` | 비율·입력 상수 SSOT |
+
+## Dual Track (레이어)
+
+| Track | 레이어 | 패키지(REFACTOR) | TC |
+|-------|--------|------------------|-----|
+| **A** | UI / Boundary | `unit_converter/app/`, `cli.py` | `U-*` |
+| **B** | Domain / Logic | `unit_converter/domain/` | `D-*` |
+
+**Track A/B = 레이어 이름.** RED 실행 순서 = **Domain(B) → Boundary(A)**.
+
+## 단계별 코드 허용
+
+| 단계 | `unit_converter/` | `converter.py`/`validator.py` | `tests/` | `UnitConverter.py` |
+|------|-------------------|-------------------------------|----------|-------------------|
+| SPEC | ❌ | ❌ | conftest만 | 레거시 유지 |
+| RED | ❌ | ❌ | ✅ `pytest.fail` only | ❌ |
+| GREEN | ❌ | ✅ 최소 | ✅ assert | ✅ `process()` 최소 |
+| REFACTOR | ✅ §ARCHITECTURE | → 패키지 이전 | ✅ 회귀 | ✅ 얇은 main |
+
+## 커밋 말머리
+
+`[SPEC]` · `[RED]` · `[GREEN]` · `[REFACTOR]` — RED/GREEN은 **1 Test ID = 1 커밋**.
