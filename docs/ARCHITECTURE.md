@@ -70,13 +70,14 @@ stdin "meter:2.5"
 ```
 tests/
 ├── conftest.py           # 비율·입력 SSOT (로직 없음)
-├── domain/               # Track B — D-*
-│   └── test_converter.py
-├── boundary/             # Track A — U-*
-│   └── test_cli.py
+├── test_domain.py        # Track B — D-CNV-* (RED/GREEN)
+├── test_boundary.py      # Track A — U-IN-*, U-OUT-* (RED/GREEN)
 ├── _approval.py          # Golden harness (green)
 └── golden/               # Approval 기준 (green)
 ```
+
+> **GREEN 단계:** 구현은 루트 `converter.py`, `validator.py`, `UnitConverter.py`(`process`/`main`)에 둔다.  
+> `unit_converter/` 패키지는 **refactoring** 브랜치에서 이전한다.
 
 ## 7. 레거시 → 목표 매핑
 

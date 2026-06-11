@@ -9,9 +9,9 @@
 ```
 /green-minimal
 Phase: green | Layer: domain | Track: Logic
-RED 대상: D-CNV-01 (tests/domain/test_converter.py)
+RED 대상: D-CNV-01 (tests/test_domain.py)
 1. RED 재확인 — pytest.fail 상태인지 실행
-2. unit_converter/domain/ 에 최소 구현
+2. 루트 `converter.py` / `validator.py` + `UnitConverter.py` 에 최소 구현 (GREEN 단계 `unit_converter/` 패키지 금지)
 3. 하드코딩·매직넘버 금지 → conftest SSOT 또는 registry
 4. pytest.fail 제거 → 실제 assert
 5. PASS 확인

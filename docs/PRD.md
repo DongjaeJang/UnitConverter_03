@@ -150,6 +150,7 @@ feet ↔ yard 변환은 **meter 경유**: `value_in_meter = value / ratio[source
 | D-CNV-01 | `to_meter` | 1 feet | 0.3048 m (±ε) | meter 기준 |
 | D-CNV-02 | `convert_all` | 2.5 meter | feet=8.20210 (5자리) | registry 3단위 |
 | D-CNV-03 | `convert_all` | feet→yard | meter 경유 일치 | 교차 검증 |
+| D-CNV-04 | `convert_all` | 2.5 meter | yard=2.73403 (5자리) | ROUND_HALF_UP |
 | D-REG-01 | `register` | cubit 0.4572 m | 변환 가능 | OCP |
 | D-CFG-01 | `load_config` | 깨진 JSON | ConfigError | P1 |
 
@@ -160,7 +161,9 @@ feet ↔ yard 변환은 **meter 경유**: `value_in_meter = value / ratio[source
 | U-IN-01 | `""` (빈 입력) | 형식 오류 메시지 | pytest.fail |
 | U-IN-02 | `meter` (콜론 없음) | 형식 오류 | pytest.fail |
 | U-IN-03 | `meter:-1` | 음수 거부 | pytest.fail |
-| U-OUT-01 | `meter:2.5` | 3줄 이상 출력 | pytest.fail |
+| U-IN-04 | `mile:1` | unknown unit 오류 | pytest.fail |
+| U-IN-05 | `:2.5` / `meter:` | 빈 토큰 형식 오류 | pytest.fail |
+| U-OUT-01 | `meter:2.5` | stdout 2줄 (feet·yard, 소수 1자리) | pytest.fail |
 
 ---
 
