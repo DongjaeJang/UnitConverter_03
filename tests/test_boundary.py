@@ -2,7 +2,7 @@
 
 import pytest
 
-from validator import FORMAT_ERROR, ValidationError, validate
+from validator import FORMAT_ERROR, NEGATIVE_ERROR, ValidationError, validate
 
 
 def test_u_in_01_empty_input():
@@ -16,7 +16,8 @@ def test_u_in_02_no_colon():
 
 
 def test_u_in_03_reject_negative():
-    pytest.fail("RED: U-IN-03")
+    with pytest.raises(ValidationError, match=NEGATIVE_ERROR):
+        validate("meter:-1")
 
 
 def test_u_out_01_meter_stdout():
