@@ -10,3 +10,6 @@ def test_u_in_02_no_colon():
 
 def test_u_in_03_reject_negative():
     pytest.fail("RED: U-IN-03 — 음수 거부, 구현 없음")
+
+def test_u_in_04_unknown_unit():
+    pytest.fail("RED: U-IN-04 — unknown unit 오류, 구현 없음")
