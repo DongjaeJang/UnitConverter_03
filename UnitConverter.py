@@ -8,9 +8,10 @@ def process(input_str: str) -> list[str]:
     unit, value = validate(input_str)
     results = convert_all(unit, value)
     lines: list[str] = []
-    for name in ("feet", "yard"):
-        if name in results:
-            lines.append(f"{value} {unit} = {results[name]:.1f} {name}")
+    for target_unit in OUTPUT_UNITS:
+        if target_unit in results:
+            converted = results[target_unit]
+            lines.append(f"{value} {unit} = {converted:.1f} {target_unit}")
     return lines
 
 
