@@ -20,3 +20,8 @@ def test_u_in_02_no_colon():
 def test_u_in_03_reject_negative():
     with pytest.raises(ValidationError, match=NEGATIVE_ERROR):
         validate("meter:-1")
+
+
+def test_u_in_04_unknown_unit():
+    with pytest.raises(ValidationError, match="Unknown unit: mile"):
+        validate("mile:1")
