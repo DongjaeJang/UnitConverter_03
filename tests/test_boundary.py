@@ -4,3 +4,6 @@ import pytest
 
 def test_u_in_01_empty_input():
     pytest.fail("RED: U-IN-01 — 빈 입력 형식 오류, 구현 없음")
+
+def test_u_in_02_no_colon():
+    pytest.fail("RED: U-IN-02 — 콜론 없음 형식 오류, 구현 없음")
