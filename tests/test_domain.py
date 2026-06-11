@@ -19,3 +19,8 @@ def test_d_cnv_03_feet_yard_consistency():
     meter_value = to_meter("feet", 1)
     expected_yard = float((meter_value * float(METER_TO_YARD)))
     assert abs(result["yard"] - expected_yard) < 1e-4
+
+
+def test_d_cnv_04_convert_all_yard():
+    result = convert_all("meter", 2.5)
+    assert abs(result["yard"] - 2.73403) < 1e-5

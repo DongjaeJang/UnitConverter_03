@@ -34,11 +34,11 @@ def convert_all(unit: str, value: float) -> dict[str, float]:
     for name in OUTPUT_UNITS:
         if name == unit:
             continue
-        if name == "feet":
-            converted = meter * METER_TO_FEET
-        elif name == "yard":
-            converted = meter * METER_TO_YARD
-        else:
+        if name == "meter":
             converted = meter
+        elif name == "feet":
+            converted = meter * METER_TO_FEET
+        else:
+            converted = meter * METER_TO_YARD
         results[name] = _quantize5(converted)
     return results
