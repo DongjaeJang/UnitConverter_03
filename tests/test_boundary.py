@@ -13,3 +13,7 @@ def test_u_in_03_reject_negative():
 
 def test_u_in_04_unknown_unit():
     pytest.fail("RED: U-IN-04 — unknown unit 오류, 구현 없음")
+
+@pytest.mark.parametrize("input_str", [pytest.param(":2.5", id="empty_unit"), pytest.param("meter:", id="empty_value")])
+def test_u_in_05_empty_token(input_str):
+    pytest.fail("RED: U-IN-05 — 빈 토큰 형식 오류, 구현 없음")
