@@ -31,3 +31,9 @@ def test_u_in_04_unknown_unit():
 def test_u_in_05_empty_token(input_str):
     with pytest.raises(ValidationError, match=re.escape(FORMAT_ERROR)):
         validate(input_str)
+
+
+def test_u_out_01_meter_stdout():
+    from UnitConverter import process
+
+    assert process("meter:2.5") == ["2.5 meter = 8.2 feet", "2.5 meter = 2.7 yard"]
