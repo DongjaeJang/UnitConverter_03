@@ -22,3 +22,10 @@ def test_u_in_03_negative_value():
     # When: validate value
     # Then: reject negative
     pytest.fail("RED: U-IN-03 — 음수 거부, 구현 없음")
+
+
+def test_u_out_01_meter_output(sample_input):
+    # Given: "meter:2.5"
+    # When: run converter CLI
+    # Then: output lines for feet and yard
+    pytest.fail("RED: U-OUT-01 — meter:2.5 전 단위 출력, 구현 없음")
