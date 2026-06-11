@@ -24,5 +24,6 @@ def test_d_cnv_03_feet_yard_consistency():
 
 
 def test_d_cnv_04_convert_all_yard():
-    pytest.fail("RED: D-CNV-04")
+    result = convert_all("meter", 2.5)
+    assert abs(result["yard"] - 2.73403) < 1e-5
 
