@@ -1,0 +1,27 @@
+"""Track B -- Domain / Logic (Phase 1: D-CNV-01 ~ D-CNV-04)."""
+
+from unit_converter.domain.converter import convert_all, to_meter
+from unit_converter.domain.registry import METER_TO_YARD
+
+
+def test_d_cnv_01_to_meter_feet():
+    result = to_meter("feet", 1)
+    assert abs(result - 0.3048) < 1e-4
+
+
+def test_d_cnv_02_convert_all_feet():
+    result = convert_all("meter", 2.5)
+    assert abs(result["feet"] - 8.20210) < 1e-5
+
+
+def test_d_cnv_03_feet_yard_consistency():
+    result = convert_all("feet", 1)
+    assert "feet" not in result
+    meter_value = to_meter("feet", 1)
+    expected_yard = float(meter_value * float(METER_TO_YARD))
+    assert abs(result["yard"] - expected_yard) < 1e-4
+
+
+def test_d_cnv_04_convert_all_yard():
+    result = convert_all("meter", 2.5)
+    assert abs(result["yard"] - 2.73403) < 1e-5
