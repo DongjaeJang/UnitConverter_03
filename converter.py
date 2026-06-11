@@ -19,6 +19,8 @@ def _value_in_meters(unit: str, value: float) -> Decimal:
         return Decimal(str(value))
     if unit == "feet":
         return Decimal(str(value)) / METER_TO_FEET
+    if unit == "yard":
+        return Decimal(str(value)) / METER_TO_YARD
     raise ValueError(f"Unknown unit: {unit}")
 
 
@@ -29,6 +31,14 @@ def _quantize5(amount: Decimal) -> float:
 def convert_all(unit: str, value: float) -> dict[str, float]:
     meter = _value_in_meters(unit, value)
     results: dict[str, float] = {}
-    if unit != "feet":
-        results["feet"] = _quantize5(meter * METER_TO_FEET)
+    for name in OUTPUT_UNITS:
+        if name == unit:
+            continue
+        if name == "feet":
+            converted = meter * METER_TO_FEET
+        elif name == "yard":
+            converted = meter * METER_TO_YARD
+        else:
+            converted = meter
+        results[name] = _quantize5(converted)
     return results
