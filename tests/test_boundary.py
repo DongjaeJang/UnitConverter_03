@@ -29,3 +29,7 @@ def test_u_out_01_meter_stdout():
     # When: process("meter:2.5")
     # Then: stdout 2줄 (feet·yard, 소수 1자리)
     pytest.fail("RED: U-OUT-01 — meter:2.5 CLI 2줄 출력, 구현 없음")
+
+
+def test_u_in_04_unknown_unit():
+    pytest.fail("RED: U-IN-04 — unknown unit 오류, 구현 없음")
